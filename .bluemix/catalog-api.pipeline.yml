@@ -4,7 +4,7 @@ stages:
   inputs:
   - type: git
     branch: master
-    service: ${ORDER_API_REPO}
+    service: ${CATALOG_API_REPO}
   triggers:
   - type: commit
   jobs:

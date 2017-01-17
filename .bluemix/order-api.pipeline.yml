@@ -12,9 +12,9 @@ stages:
     type: builder
     extension_id: ibm.devops.services.pipeline.container.builder
     target:
-      region_id: ${PROD_REGION_ID}
-      organization: ${PROD_ORG_NAME}
-      space: ${PROD_SPACE_NAME}
+      region_id: ${DEV_REGION_ID}
+      organization: ${DEV_ORG_NAME}
+      space: ${DEV_SPACE_NAME}
     IMAGE_NAME: ${CF_APP_NAME}
     USE_CACHED_LAYERS: 'true'
     COMMAND: |
@@ -89,9 +89,9 @@ stages:
     type: deployer
     extension_id: ibm.devops.services.pipeline.docker.deploy.ice
     target:
-      region_id: ${PROD_REGION_ID}
-      organization: ${PROD_ORG_NAME}
-      space: ${PROD_SPACE_NAME}
+      region_id: ${DEV_REGION_ID}
+      organization: ${DEV_ORG_NAME}
+      space: ${DEV_SPACE_NAME}
     PORT: '80'
     CONTAINER_NAME: ${CF_APP_NAME}
     DEPLOY_TYPE: red_black
@@ -142,7 +142,8 @@ stages:
       #                                    Default is 1
       # IF YOU WANT CONTAINER GROUPS .. uncomment the next line, and comment out the previous deployment line (/bin/bash deployscripts/deploygroup.sh)
       /bin/bash deployscripts/deploygroup.sh
-      
+      # create required services
+      cf create-service elephantsql turtle myMicroservicesSQL
       RESULT=$?
       
       #########################

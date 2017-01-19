@@ -100,6 +100,9 @@ stages:
       # The following are some example deployment scripts.  Use these as is or fork them and include your updates here:
       echo -e "${label_color}Starting deployment script${no_color}"
       
+      # setting instances to 1 desired and 2 max
+      export DESIRED_INSTANCES=1
+      export MAX_INSTANCES=2
       
       # To view/fork this script goto: https://github.com/Osthanes/deployscripts
       # git_retry will retry git calls to prevent pipeline failure on temporary github problems

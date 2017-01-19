@@ -99,8 +99,16 @@ stages:
       #!/bin/bash
       # The following are some example deployment scripts.  Use these as is or fork them and include your updates here:
       echo -e "${label_color}Starting deployment script${no_color}"
+
+      # create required services
+      cf create-service elephantsql turtle myMicroservicesSQL
       
-      
+      # Set bindings to application for db, and instances
+      export DESIRED_INSTANCES=1
+      export MAX_INSTANCES=2
+      export AUTO_RECOVERY=true
+      export BIND_TO="MicroservicesOrdersAPI"
+
       # To view/fork this script goto: https://github.com/Osthanes/deployscripts
       # git_retry will retry git calls to prevent pipeline failure on temporary github problems
       # the code can be found in git_util.sh at https://github.com/Osthanes/container_deployer
@@ -142,8 +150,7 @@ stages:
       #                                    Default is 1
       # IF YOU WANT CONTAINER GROUPS .. uncomment the next line, and comment out the previous deployment line (/bin/bash deployscripts/deploygroup.sh)
       /bin/bash deployscripts/deploygroup.sh
-      # create required services
-      cf create-service elephantsql turtle myMicroservicesSQL
+
       RESULT=$?
       
       #########################
